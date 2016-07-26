@@ -1,0 +1,23 @@
+
+/* LOS CSS DE LOS REPORTES  NO LOS ESTABA TOMANDO CARGANDOLO DESDE ESTE ARCHIVO VIA HEADER, RAZON POR LA CUAL  SE COLOCAN EN LAS MISMAS VISTAS HASTA TANTO SE PUEDA SOLUCIONAR*/
+h1
+{
+
+font-size: 18px;
+}
+
+.panel-default .panel-heading {
+    color: #ffffff;
+    background-image: none;
+    background-color: #0A4273;
+    border: none;
+    text-transform: uppercase;
+}
+
+.disp {
+    color: #ffffff;
+    background-image: none;
+    background-color: #0A4273;
+    border: none;
+    text-transform: uppercase;
+}

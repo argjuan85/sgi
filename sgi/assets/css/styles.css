@@ -1,0 +1,15 @@
+body{font-family:Arial,Helvetica,sans-serif;background-color:#F0F0F0;font-size:12px;}
+h1{color:#072936;}
+.wrapper{width:730px;margin:0 auto;}
+footer{border-top:1px solid #CCC;float:right;font-size:12px;width:81%;margin:40px 0 0;padding:10px;}
+#big_table_wrapper{background-color:#fff;}
+#big_table_wrapper .dataTables_length{float:left;}
+#big_table_wrapper .dataTables_filter{float:right;}
+#big_Table_wrapper .ui-toolbar{padding:5px;}
+#big_table{width:730px;text-align: center;}
+.dataTables_paginate .ui-button{margin-right:-.1em!important;}
+.paging_full_numbers .ui-button{color:#333!important;cursor:pointer;margin:0;padding:2px 6px;}
+.dataTables_info{float:left;width:50%;padding-top:3px;}
+.dataTables_paginate{float:right;text-align:right;width:auto;}
+.paging_full_numbers{width:350px!important;}
+#big_table_processing > img{padding-left:20px;}</code>

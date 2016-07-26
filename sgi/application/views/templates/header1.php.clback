@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Este archivo debe cargarse primero para que funcione el hover del menu -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script> 
+<link href="http://10.37.9.21:8080/sgi/assets/grocery_crud/themes/flexigrid/css/flexigrid.css" rel="stylesheet"/><link href="http://10.37.9.21:8080/sgi/assets/grocery_crud/css/jquery_plugins/fancybox/jquery.fancybox.css" rel="stylesheet"/><link href="http://10.37.9.21:8080/sgi/assets/grocery_crud/css/ui/simple/jquery-ui-1.10.1.custom.min.css" rel="stylesheet"/><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/js/jquery_plugins/jquery.noty.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/js/jquery_plugins/config/jquery.noty.config.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/js/common/lazyload-min.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/js/common/list.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/themes/flexigrid/js/cookies.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/themes/flexigrid/js/flexigrid.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/js/jquery_plugins/jquery.form.min.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/js/jquery_plugins/jquery.numeric.min.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/themes/flexigrid/js/jquery.printElement.min.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/js/jquery_plugins/jquery.fancybox-1.3.4.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/js/jquery_plugins/jquery.easing-1.3.pack.js" type="text/javascript"></script><script src="http://10.37.9.21:8080/sgi/assets/grocery_crud/js/jquery_plugins/ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+
+<?php 
+if(isset($css_files)){
+      foreach($css_files as $style){
+          echo '<link href="'.$style.'" rel="stylesheet"/>';
+      }
+}
+if(isset($js_files)){
+      foreach($js_files as $script){
+          echo '<script src="'.$script.'" type="text/javascript"></script>';
+      }
+}
+
+/* para la carga del select de sedes  mas abajo*/
+//$controller =  $data['controller'];
+//$sedes = $data['sedes'];
+$sedes = $this->sedes_model->obtener_sedes();
+$sede_log = $this->session->userdata('sede');
+//tomo el segmento de la pagina para el submit del formulario del select de sedes. despues en cada crud debo preguntar por el post para ver si hubo cambios
+$form_action = $this->uri->segment(1)."/".$this->uri->segment(2);
+	
+	   
+   
+?>
+
+             
+
+
+
+
+<!--  Archivos necesarios para que funcione el menu -->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="<?php echo base_url();?>assets/js/bootstrap-hover-dropdown.js"></script> 
+ 
+  <script>
+    // very simple to use!
+    $(document).ready(function() {
+      $('.js-activated').dropdownHover().dropdown();
+    });
+  </script>
+  
+  <!-- fin archivos menu -->
+  
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description" content="A demo for my simple plugin that enables Bootstrap dropdowns to activate on hover and provide a nice user experience.">
+  <meta name="author" content="Cameron Spear">
+
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+  <style type="text/css">
+    body { padding-top: 70px; min-height: 410px }
+    .tab-content p { padding: 10px 0; }
+  </style>
+
+  <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <header class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<?php echo site_url();?>/componentes/inicio">Sistema de Gestion de Insumos</a>
+      <div class="navbar-collapse nav-collapse collapse navbar-header">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle js-activated">Pedidos <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="<?php echo site_url();?>/pedidos/listar">Listado Pedidos</a></li>
+              <li><a href="<?php echo site_url();?>/pedidos/listar2">Listado Envios</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Dropdown header</li>
+              <li><a href="#">Separated link</a></li>
+              <li><a href="#">One more separated link</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">Insumos <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a tabindex="-1" href="<?php echo site_url();?>/stock/listar">Stock</a></li>
+              <li><a tabindex="-1" href="<?php echo site_url();?>/entregas/listar">Entregas</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">ABM <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a tabindex="-1" href="<?php echo site_url();?>/equipos/listar">Equipos</a></li>
+              <li class="divider"></li>
+              <li><a tabindex="-1" href="<?php echo site_url();?>/insumos/listar">Insumos</a></li>
+              <li><a tabindex="-1" href="<?php echo site_url();?>/parametros/listar">Parametros</a></li>
+              <li class="divider"></li>
+              <li><a tabindex="-1" href="#">Logout</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle js-activated" data-toggle="dropdown">Contact <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a tabindex="-1" href="<?php echo site_url();?>/componentes/salir">Salir</a></li>
+              <li><a tabindex="-1" href="#">Contact My Mom</a></li>
+              <li class="divider"></li>
+              <li><a tabindex="-1" href="#">Contact Your Mom</a></li>
+              <li><a tabindex="-1" href="#">Contact the President</a></li>
+            </ul>
+          </li>
+
+			<li class="dropdown">
+          
+    
+            
+         
+  
+		<?php 
+		/*
+		switch ($controller) {
+		
+	
+	case "Entregas":  {
+		echo form_open('entregas/listar');
+		break;
+	}
+	case "Pedidos":  {
+		echo form_open('pedidos/listar');
+		break;
+	}
+	case "Equipos":  {
+		echo form_open('equipos/listar');
+		break;
+	}
+	case "Sectores":  {
+		echo form_open('sectores/listar');
+		break;
+	}
+	case "Sedes":  {
+		echo form_open('sedes/listar');
+		break;
+	}
+	case "Stock":  {
+		echo form_open('stock/listar');
+		break;
+	}
+	case "Envios":  {
+		echo form_open('pedidos/listar2');
+		break;
+	}
+   }*/
+		echo form_open($form_action);
+		?>
+			<select name="insumo"  onchange="this.form.submit()" id="insumo">
+    		<option value="">Selecciona Sede...</option>
+    		<?
+		foreach($sedes as $fila)
+		{
+		
+				
+			$b = $fila['id'];
+			$nivel_sede = $b; 
+			$c= pow(2,$nivel_sede - 1);
+			$d= $c & $sede_log; 
+			
+		
+			If ( $d  == $c)
+			{
+				if ($this->session->userdata('sede_filtro') == $fila['id'])
+				{
+			?>
+			<option value="<?=$fila['id'] ?>" selected><?=$fila['nombre_sede'] ?></option>
+		   <?php
+					
+				}
+				else
+				{
+					
+				?>
+			<option value="<?=$fila['id'] ?>"><?=$fila['nombre_sede'] ?></option>
+		<?php
+				}
+		}
+		}
+	
+	
+		?>		
+	</select>
+<? 	echo form_close(); ?>
+ </li>
+
+
+        </ul>
+      </div> <!-- .nav-collapse -->
+    </div> <!-- .container -->
+  </header> <!-- .navbar -->
+
+      <div class="alert alert-danger">
+      
+          <?php echo "filtro:"?>
+            <?php echo $this->session->userdata('sede_filtro');?>
+            <?php echo "log:"?>
+          <?php echo $sede_log;?>
+            <?php echo "controller:"?>
+          <?php //echo $controller;?>
+          <?php echo "controller:"?>
+          <?php echo $this->uri->segment(1),"/", $this->uri->segment(2) ;
+            if(isset($_POST['insumo']))
+    	{
+$this->session->set_userdata('sede_filtro', $_POST['insumo'] );
+
+        echo "post: ", $_POST['insumo'];
+
+    	}
+          
+          
+          ?>
+          
+        <strong>Please note</strong> that Bootstrap 3 <em>does not</em> support submenus. See <a href="https://github.com/twbs/bootstrap/pull/6342#issuecomment-11594010">this comment</a> from one of the original authors.
+      </div>
+      
+      
+</head>
+<body>
